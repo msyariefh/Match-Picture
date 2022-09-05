@@ -26,8 +26,10 @@ namespace HiDE.Matcher.Gameplay
             switch (result)
             {
                 case Result.WIN:
+                    Debug.Log("WIN");
                     break;
                 case Result.LOSE:
+                    Debug.Log("LOSE");
                     break;
             }
         }

@@ -23,12 +23,14 @@ namespace HiDE.Matcher.Gameplay
         private GameObject[,] _grid;
         private List<int>[] _gridPool;
         private Sprite[] _theme;
+        private int _totalTilesToBeSolved;
 
         private TileInfo _lastSelectedTile;
 
 
         private void Awake()
         {
+            _totalTilesToBeSolved = _gridWidth * _gridHeight;
             _lastSelectedTile.Assigned = false;
             _grid = new GameObject[_gridHeight, _gridWidth];
             _gridPool = new List<int>[2];
@@ -109,6 +111,11 @@ namespace HiDE.Matcher.Gameplay
         {
             _grid[tile1.Coordinate.Y, tile1.Coordinate.X].SetActive(false);
             _grid[tile2.Coordinate.Y, tile2.Coordinate.X].SetActive(false);
+            _totalTilesToBeSolved -= 2;
+            if (_totalTilesToBeSolved == 0)
+            {
+                onTilesCleared?.Invoke();
+            }
         }
 
         private Coordinate2D RandomizeTileCoor()
